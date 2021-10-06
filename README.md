@@ -40,3 +40,8 @@ Add more user stories for more features like recording wickets, recording extras
 ```
 As an official scorer
 ```
+
+## Class diagram
+Available on 
+[diagrams.net](https://app.diagrams.net/?src=about#G1nbMW8Hybago_mW3bpOrsWEeyhTN4JLMK)
+and also the draft copy is saved as a screenshot in this repo.
