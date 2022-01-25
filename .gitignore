@@ -1,2 +1,4 @@
 .~lock.nouns_and_actions.ods#
 cricketvenv/
+__pycache__/
+__init__cpython*
