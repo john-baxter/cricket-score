@@ -29,4 +29,7 @@ def create_app(test_config=None):
   def love():
     return "I don't like cricket, I love it."
   
+  from . import db
+  db.init_app(app)
+  
   return app
