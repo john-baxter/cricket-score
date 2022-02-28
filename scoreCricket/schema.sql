@@ -13,6 +13,7 @@ CREATE TABLE match_info (
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   -- TODO
   -- Find out how to change the date so that it is just the date (without time)
+  -- (answer!) use .strftime() method to format date while rendering
   venue TEXT,
   team_a TEXT NOT NULL,
   team_b TEXT NOT NULL,
