@@ -42,12 +42,12 @@ def create_app(test_config=None):
   return app
 
 
-@route('/')
-def index():
-  db = get_db
-  matches = db.execute(
-    'SELECT p.id, venue, team_a, team_b, date, scorer_id'
-    ' FROM match_info p JOIN user u ON p.scorer_id = u.id'
-    ' ORDER BY date DESC'
-  ).fetchall()
-  return render_template('match_info/index.html', matches=matches)
+# @route('/')
+# def index():
+#   db = get_db
+#   matches = db.execute(
+#     'SELECT p.id, venue, team_a, team_b, date, scorer_id'
+#     ' FROM match_info p JOIN user u ON p.scorer_id = u.id'
+#     ' ORDER BY date DESC'
+#   ).fetchall()
+#   return render_template('match_info/index.html', matches=matches)
