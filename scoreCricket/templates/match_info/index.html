@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Matches{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action", href="{{ url_for('match_info.create') }}">New match</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for match in matches %}
+  <article class="post">
+    <header>
+      <div>
+        <h1>Match between {{ match['team_a'] }} and {{ match['team_b'] }} on {{ match['date'].strftime('%d %b %Y') }}</h1>
+        <div class="about">scored by {{ post['username'] }}</div>
+      </div>
+    </header>
+  </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
