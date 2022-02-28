@@ -49,7 +49,7 @@ def create():
   )
   
   
-@route('/')
+@bp.route('/')
 def index():
   db = get_db
   matches = db.execute(
@@ -58,3 +58,35 @@ def index():
     ' ORDER BY date DESC'
   ).fetchall()
   return render_template('match_info/index.html', matches=matches)
+
+
+@bp.route('/create', methods=('GET', 'POST'))
+@login_required
+def create():
+  if request.method =='POST':
+    venue = request.form['venue']
+    team_a = request.form['team_a']
+    team_b = request.form['team_b']
+    team_a_runs = request.form['team_a_runs']
+    team_b_runs = request.form['team_b_runs']
+    error = None
+
+    if not team_a or not team_b:
+      error = "Please enter two teams"
+
+    if not team_a_runs or not team_b_runs:
+      error = "Please enter a score for each team"
+      
+    if error is not None:
+      flash(error)
+    else:
+      db = get_db()
+      db.execute(
+        'INSERT INTO match_info (venue, team_a, team_b, team_a_runs, team_b_runs, scorer_id)'
+        ' VALUES (?, ?, ?, ?, ?, ?)',
+        (venue, team_a, team_b, team_a_runs, team_b_runs, g.user['id'])
+      )
+      db.commit()
+      return redirect(url_for(match_info.index))
+    
+  return render_template('match_info/create.html')
