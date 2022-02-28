@@ -12,7 +12,7 @@ def create_app(test_config=None):
   )
   
   if test_config is None:
-    # load the instance config, if it exists, when not teating
+    # load the instance config, if it exists, when not testing
     app.config.from_pyfile('config.py', silent=True)
   else:
     # load the teat config if passed in
@@ -35,4 +35,19 @@ def create_app(test_config=None):
   from . import auth
   app.register_blueprint(auth.bp)
   
+  from . import match_info
+  app.register_blueprint(match_info.bp)
+  app.add_url_rule('/', endpoint='index')
+  
   return app
+
+
+@route('/')
+def index():
+  db = get_db
+  matches = db.execute(
+    'SELECT p.id, venue, team_a, team_b, date, scorer_id'
+    ' FROM match_info p JOIN user u ON p.scorer_id = u.id'
+    ' ORDER BY date DESC'
+  ).fetchall()
+  return render_template('match_info/index.html', matches=matches)
