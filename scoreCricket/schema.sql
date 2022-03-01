@@ -19,5 +19,5 @@ CREATE TABLE match_info (
   team_b TEXT NOT NULL,
   team_a_runs INTEGER,
   team_b_runs INTEGER,
-  FOREIGN KEY (scorer_id) REFERENCES user (id)
+  FOREIGN KEY (scorer_id) REFERENCES user (username)
 );

@@ -14,7 +14,7 @@ def index():
   db = get_db()
   matches = db.execute(
     'SELECT p.id, venue, team_a, team_b, date, scorer_id'
-    ' FROM match_info p JOIN user u ON p.scorer_id = u.id'
+    ' FROM match_info p JOIN user u ON p.scorer_id = u.username'
     ' ORDER BY date DESC'
   ).fetchall()
   return render_template('match_info/index.html', matches=matches)
@@ -44,7 +44,7 @@ def create():
       db.execute(
         'INSERT INTO match_info (venue, team_a, team_b, team_a_runs, team_b_runs, scorer_id)'
         ' VALUES (?, ?, ?, ?, ?, ?)',
-        (venue, team_a, team_b, team_a_runs, team_b_runs, g.user['id'])
+        (venue, team_a, team_b, team_a_runs, team_b_runs, g.user['username'])
       )
       db.commit()
       return redirect(url_for('match_info.index'))
