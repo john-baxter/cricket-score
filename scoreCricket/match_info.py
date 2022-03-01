@@ -50,3 +50,19 @@ def create():
       return redirect(url_for('match_info.index'))
     
   return render_template('match_info/create.html')
+
+def get_match_details(id, check_author=True):
+  match = get_db().execute(
+    'SELECT p.id, scorer_id, date, venue, team_a, team_b, team_a_runs, team_b_runs'
+    ' FROM match_info p JOIN user u ON p.scorer_id = u.username'
+    ' WHERE p.id = ?',
+    (id,)
+  ).fetchone()
+  
+  if match is None:
+    abort(404, f"Match id {id} doesn't exist.")
+    
+  if check_author and match['scorer_id'] != g.user['username']:
+    abort(403)
+    
+  return match

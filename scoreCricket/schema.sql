@@ -9,7 +9,7 @@ CREATE TABLE user (
 
 CREATE TABLE match_info (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  scorer_id INTEGER NOT NULL,
+  scorer_id TEXT,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   -- TODO
   -- Find out how to change the date so that it is just the date (without time)
