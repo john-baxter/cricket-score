@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <form>
+  <form method="post">
     <label for="venue">Match venue</label>
     <input name="venue" id="venue" value="{{ request.form['venue'] }}">
     <hr>
@@ -20,5 +20,7 @@
     <!-- <hr> -->
     <label for="team_b_runs">Runs scored by away team</label>
     <input name="team_b_runs" id="team_b_runs" value="{{ request.form['team_b_runs'] }}">
+
+    <input type="submit" value="Save">
   </form>
 {% endblock %}
