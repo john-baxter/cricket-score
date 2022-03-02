@@ -17,7 +17,7 @@
       </div>
       {% if g.user['username'] == match['scorer_id'] %}
         <a class="action" href="{{ url_for('match_info.update', id=match['id']) }}">Edit this match</a>
-        <a class="action" href="{{ url_for('match_info.delete', id=match['id']) }}">Delete this match</a>
+        <a class="action" onclick="return confirm('Are you sure?')" href="{{ url_for('match_info.delete', id=match['id']) }}">Delete this match</a>
       {% endif %}
     </header>
   </article>

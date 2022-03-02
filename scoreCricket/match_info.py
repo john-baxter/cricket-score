@@ -105,9 +105,6 @@ def update(id):
 @bp.route('/<int:id>/delete', methods=("GET", "POST", "DELETE"))
 @login_required
 def delete(id):
-  # TODO
-  # Make this more secure - add in a confirm step or something
-  # Reference flaskr app update.html line 18
   get_match_details(id)
   db = get_db()
   db.execute('DELETE FROM match_info WHERE id = ?', (id,))
