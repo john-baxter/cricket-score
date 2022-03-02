@@ -31,12 +31,12 @@ def create():
     team_b_runs = request.form['team_b_runs']
     error = None
 
-    if not team_a or not team_b:
-      error = "Please enter two teams"
-
     if not team_a_runs or not team_b_runs:
       error = "Please enter a score for each team"
       
+    if not team_a or not team_b:
+      error = "Please enter two teams"
+
     if error is not None:
       flash(error)
     else:
@@ -80,31 +80,34 @@ def update(id):
     team_a_runs = request.form['team_a_runs']
     team_b_runs = request.form['team_b_runs']
     error = None
+      
+    if not team_a_runs or not team_b_runs:
+      error = "Please enter a score for each team"
     
     if not team_a or not team_b:
       error = "Please enter two teams"
 
-    if not team_a_runs or not team_b_runs:
-      error = "Please enter a score for each team"
-      
     if error is not None:
       flash(error)
     else:
       db = get_db()
       db.execute(
-        'UPDATE match SET venue = ?, team_a = ?, team_b = ?, team_a_runs = ?, team_b_runs = ?'
+        'UPDATE match_info SET venue = ?, team_a = ?, team_b = ?, team_a_runs = ?, team_b_runs = ?'
         ' WHERE id = ?',
         (venue, team_a, team_b, team_a_runs, team_b_runs, id)
       )
       db.commit()
       return redirect(url_for('match_info.index'))
     
-  return render_template('match_info/update.html', post=post)
+  return render_template('match_info/update.html', match=match)
 
 
-@bp.route('/<int:id>/delete', methods=("POST",))
+@bp.route('/<int:id>/delete', methods=("GET", "POST", "DELETE"))
 @login_required
 def delete(id):
+  # TODO
+  # Make this more secure - add in a confirm step or something
+  # Reference flaskr app update.html line 18
   get_match_details(id)
   db = get_db()
   db.execute('DELETE FROM match_info WHERE id = ?', (id,))

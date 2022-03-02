@@ -1,2 +1,33 @@
-<!-- TODO -->
-<!-- Make this template -->
+{% extends 'base.html' %}
+
+{% block title %}
+  Edit match
+{% endblock %}
+
+{% block header %}
+<h1>
+  Edit details of match between {{ match['team_a'] }} and {{ match['team_b'] }} on {{ match['date'].strftime('%d %b %Y') }}
+</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+  <form method="post">
+    <label for="venue">Match venue</label>
+    <input name="venue" id="venue" value="{{ match['venue'] }}">
+    <hr>
+    <label for="team_a">Home team</label>
+    <input name="team_a" id="team_a" value="{{ match['team_a'] }}">
+    <!-- <hr> -->
+    <label for="team_a_runs">Runs scored by home team</label>
+    <input name="team_a_runs" id="team_a_runs" value="{{ match['team_a_runs'] }}">
+    <hr>
+    <label for="team_b">Away team</label>
+    <input name="team_b" id="team_b" value="{{ match['team_b'] }}">
+    <!-- <hr> -->
+    <label for="team_b_runs">Runs scored by away team</label>
+    <input name="team_b_runs" id="team_b_runs" value="{{ match['team_b_runs'] }}">
+
+    <input type="submit" value="Save">
+</form>
+{% endblock %}
